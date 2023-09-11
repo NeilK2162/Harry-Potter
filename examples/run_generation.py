@@ -182,10 +182,11 @@ def main():
 
     set_seed(args)
 
-    args.model_type = args.model_type.lower()
-    model_class, tokenizer_class = MODEL_CLASSES[args.model_type]
-    tokenizer = tokenizer_class.from_pretrained(args.model_name_or_path)
-    model = model_class.from_pretrained(args.model_name_or_path)
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+
+    tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path)
+    model = AutoModelForCausalLM.from_pretrained(args.model_name_or_path)
+
     model.to(args.device)
     model.eval()
 
